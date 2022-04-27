@@ -17,6 +17,7 @@ public class ByteReader {
             ex.printStackTrace();
         }
         return occurrences;
+    return occurrences;
     }
 
     private static void readBytesAsZeroOrOne(File file) {
