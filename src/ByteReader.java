@@ -3,22 +3,22 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 public class ByteReader {
-    public static int[] occurrences;
+/*
 
     public static void main(String[] args) {
-        occurrences = new int[255];
         File file = new File("C:\\Users\\mikke\\OneDrive\\Dokumenter\\SDU\\DM507 - Algoritmer og datastrukture\\Projekt\\src\\text2.txt");
 
         // readBytesAsInt(file);
         // readBytesAsZeroOrOne(file);
         // read4Bytes(file);
-
+*//*
         for (int i = 0; i < occurrences.length; i++)
             if (occurrences[i] != 0)
-                System.out.println(i + ": " + occurrences[i]);
-    }
+                System.out.println(i + ": " + occurrences[i]);*//*
+    }*/
 
-    private static void readBytesAsInt(File file) {
+    public static int[] readBytesAsInt(File file) {
+        int[] occurrences = new int[255];
         try {
             FileInputStream fileInputStream = new FileInputStream(file);
             int n = fileInputStream.read();
@@ -29,6 +29,7 @@ public class ByteReader {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+    return occurrences;
     }
 
     private static void readBytesAsZeroOrOne(File file) {
