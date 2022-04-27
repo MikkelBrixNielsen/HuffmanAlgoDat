@@ -20,7 +20,6 @@ public class BitOutputStream  implements AutoCloseable {
     // between 0 and 8, inclusive.
     private int numBitsInCurrentByte;
 
-
     // Creates a bit output stream based on the given byte output
     // stream.
     public BitOutputStream(OutputStream out) {
@@ -30,7 +29,6 @@ public class BitOutputStream  implements AutoCloseable {
         currentByte = 0;
         numBitsInCurrentByte = 0;
     }
-
 
     // Writes a bit to the stream. The specified bit must be 0 or 1.
     public void writeBit(int b) throws IOException {
@@ -44,17 +42,14 @@ public class BitOutputStream  implements AutoCloseable {
         }
     }
 
-
     // Writes an int to the stream.
     public void writeInt(int i) throws IOException {
-
         int bitsWritten = 0;
         while (bitsWritten < 32){
             writeBit(i >>> (31-bitsWritten) & 1);
             bitsWritten++;
         }
     }
-
 
     // Closes this stream and the underlying OutputStream. If called
     // when this bit stream is not at a byte boundary, then the

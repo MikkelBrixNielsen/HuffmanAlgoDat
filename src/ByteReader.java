@@ -5,18 +5,18 @@ import java.io.IOException;
 public class ByteReader {
 
     public static int[] readBytesAsInt(File file) {
-        int[] occurrences = new int[256];
+        int[] frequencyTable = new int[256];
         try {
             FileInputStream fileInputStream = new FileInputStream(file);
             int n = fileInputStream.read();
             while (n != -1) {
-                occurrences[n]++;
+                frequencyTable[n]++;
                 n = fileInputStream.read();
             }
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-        return occurrences;
+        return frequencyTable;
     }
 
     private static void readBytesAsZeroOrOne(File file) {

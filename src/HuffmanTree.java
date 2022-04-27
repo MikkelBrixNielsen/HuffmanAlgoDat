@@ -8,9 +8,9 @@ public class HuffmanTree {
     }
 
     public HuffmanTree(HuffmanTree left, HuffmanTree right){
+        this.bitValue = -1;
         this.right = right;
         this.left = left;
-        this.bitValue = -1;
     }
 
     public int getBitValue() {
