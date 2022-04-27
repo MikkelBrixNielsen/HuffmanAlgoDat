@@ -1,5 +1,4 @@
 public class HuffmanTree {
-/*    int frequency;*/
     private int bitValue;
     private HuffmanTree left = null;
     private HuffmanTree right = null;
@@ -13,10 +12,6 @@ public class HuffmanTree {
         this.left = left;
         this.bitValue = -1;
     }
-
-/*    public int frequency() {
-        return frequency;
-    }*/
 
     public int getBitValue() {
         return bitValue;
