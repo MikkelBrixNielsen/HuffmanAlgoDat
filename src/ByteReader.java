@@ -5,7 +5,7 @@ import java.io.IOException;
 public class ByteReader {
 
     public static int[] readBytesAsInt(File file) {
-        int[] occurrences = new int[255];
+        int[] occurrences = new int[256];
         try {
             FileInputStream fileInputStream = new FileInputStream(file);
             int n = fileInputStream.read();
@@ -17,7 +17,6 @@ public class ByteReader {
             ex.printStackTrace();
         }
         return occurrences;
-    return occurrences;
     }
 
     private static void readBytesAsZeroOrOne(File file) {
