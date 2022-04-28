@@ -18,7 +18,8 @@ public class Encode {
         writeEncodedString(encode(inputFile, huffmanTable),outputFile);*/
     }
 
-    // måske omdøb til createBitcodeString eller noget
+    //Ikke nødvendigt
+/*
     public static String encode(File file, String[] huffmanTable) {
         String bitCode = "";
         try {
@@ -33,7 +34,7 @@ public class Encode {
             ex.printStackTrace();
         }
         return bitCode;
-    }
+    }*/
 
     // Nok unødvendigt
 /*    private  static void writeEncodedString(String encodedString, File outputFile) {
@@ -45,19 +46,28 @@ public class Encode {
 
     private static void writeFile (int[] frequencyTable, File inputFile, File outputFile){
         String[] huffmanTable = HuffmanTree.createHuffmanTable(frequencyTable);
-        String bitcode = encode(inputFile, huffmanTable);
+/*        String bitcode = encode(inputFile, huffmanTable);*/
 
-        int[] bitCodeInt = new int[bitcode.length()];
+/*        int[] bitCodeInt = new int[bitcode.length()];
         for (int i = 0; i < bitCodeInt.length; i++)
-            bitCodeInt[i] = Character.getNumericValue(bitcode.charAt(i));
+            bitCodeInt[i] = Character.getNumericValue(bitcode.charAt(i));*/
 
         try {
             BitOutputStream bitOutputStream = new BitOutputStream(new FileOutputStream(outputFile));
+            FileInputStream fileInputStream = new FileInputStream(inputFile);
             for (int intToWrite : frequencyTable)
                 bitOutputStream.writeInt(intToWrite);
+            int n = fileInputStream.read();
+            while (n != -1){
+                for (int i = 0; i < huffmanTable[n].length(); i++){
+                    bitOutputStream.writeBit(Character.getNumericValue(huffmanTable[n].charAt(i)));
+                }
+                n = fileInputStream.read();
+            }
 
-            for (int bitsToWrite : bitCodeInt)
-                bitOutputStream.writeBit(bitsToWrite);
+
+/*            for (int bitsToWrite : bitCodeInt)
+                bitOutputStream.writeBit(bitsToWrite);*/
 
             bitOutputStream.close();
         } catch (IOException e){
