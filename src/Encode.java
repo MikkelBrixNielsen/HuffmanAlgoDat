@@ -1,65 +1,45 @@
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.*;
 
 public class Encode {
     public static void main(String[] args) {
-        File inputFile = new File(args[0]);
-        File outputFile = new File(args[1]);
-        int[] frequencyTable = createFrequencyTableFrom(inputFile);
-        String[] huffmanTable = HuffmanTree.createHuffmanTable(frequencyTable);
+        writeToFile(new File(args[0]), new File(args[1]));
     }
 
     public static int[] createFrequencyTableFrom(File file) {
         int[] frequencyTable = new int[256];
         try {
-            FileInputStream fileInputStream = new FileInputStream(file);
-            int n = fileInputStream.read();
+            FileInputStream FIStream = new FileInputStream(file);
+            int n = FIStream.read();
             while (n != -1) {
                 frequencyTable[n]++;
-                n = fileInputStream.read();
+                n = FIStream.read();
             }
+            FIStream.close();
         } catch (IOException ex) {
             ex.printStackTrace();
         }
         return frequencyTable;
     }
 
-    // virker ikke helt fordi der ikke bliver padded med 0'er til sidst i filen.
-    public static String encodeFile(File file, String[] huffmanTable) {
-        String bitCode = "";
-        try {
-            FileInputStream FIStream = new FileInputStream(file);
-            int n = FIStream.read();
-            System.out.println(n != -1 ? "enter" : "");
-            while (n != -1) {
-                bitCode += huffmanTable[n];
-                System.out.println();
-                n = FIStream.read();
-            }
-            System.out.println("exit");
-            FIStream.close();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        return bitCode;
-    }
-
-    private  static void writeEToFile(int[] frequencyTable, String encodedString, File outputFile) {
-        int[] bitCode = new int[encodedString.length()];
-        for (int i = 0; i < bitCode.length; i++)
-            bitCode[i] = Character.getNumericValue(encodedString.charAt(i));
+    private static void writeToFile(File inputFile, File outputFile) {
+        int[]  frequencyTable = createFrequencyTableFrom(inputFile);
+        String[] huffmanTable = HuffmanTree.createHuffmanTable(frequencyTable);
         try {
             BitOutputStream BIStream = new BitOutputStream(new FileOutputStream(outputFile));
-            // writes frequency table to outputFile
+            FileInputStream FIStream = new FileInputStream(inputFile);
+            // writes the frequency from frequencyTable to the outputFile
             for (int intToWrite : frequencyTable)
                 BIStream.writeInt(intToWrite);
-            // writes encoded huffman bits to outputFile
-            for (int bitsToWrite : bitCode)
-                BIStream.writeBit(bitsToWrite);
-            BIStream.close();
+            // Reads ints from the input file and gets the corresponding bitCode
+            // from huffmanTable and writes it to the output file
+            int n = FIStream.read();
+            while (n != -1) {
+                for (int i = 0; i < huffmanTable[n].length(); i++)
+                    BIStream.writeBit(Character.getNumericValue(huffmanTable[n].charAt(i)));
+                n = FIStream.read();
+            }
+            BIStream.close(); // closes the BIStream and pads with zeroes if need be
+            FIStream.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

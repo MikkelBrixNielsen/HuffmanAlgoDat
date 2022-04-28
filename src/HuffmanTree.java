@@ -13,7 +13,6 @@ public class HuffmanTree {
         this.left = left;
     }
 
-
     public static String[] createHuffmanTable(int[] frequencyTable) {
         return convertHuffmanTreeToTable(huffmanAlg(frequencyTable));
     }

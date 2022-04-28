@@ -22,7 +22,6 @@ public class BitInputStream implements AutoCloseable {
 
     private boolean isEndOfStream;
 
-
     // Creates a bit input stream based on the given byte input stream.
     public BitInputStream(InputStream in) {
         if (in == null)
@@ -31,7 +30,6 @@ public class BitInputStream implements AutoCloseable {
         numBitsRemaining = 0;
         isEndOfStream = false;
     }
-
 
     // Reads a bit from the stream. Returns 0 or 1 if a bit is
     // available, or -1 if the end of stream is reached. The end of
@@ -51,7 +49,6 @@ public class BitInputStream implements AutoCloseable {
         return (nextBits >>> numBitsRemaining) & 1;
     }
 
-
     // Reads an int from the stream. Throws IOException if 32 bits are
     // not available.
     public int readInt() throws IOException {
@@ -67,7 +64,6 @@ public class BitInputStream implements AutoCloseable {
         }
         return output;
     }
-
 
     // Closes this stream and the underlying InputStream.
     public void close() throws IOException {
