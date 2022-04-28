@@ -10,8 +10,8 @@ public class Encode {
         String[] huffmanTable = HuffmanTree.createHuffmanTable(frequencyTable);
 
 
-        ByteWriter.writeBitToOutputFile(frequencyTable, outputFile); // the ByteWriter method is probably not correct / broken
-        writeEncodedString(encode(inputFile, huffmanTable),outputFile);
+        ByteWriter.writeIntToOutputFile(frequencyTable, outputFile); // the ByteWriter method is probably not correct / broken
+/*        writeEncodedString(encode(inputFile, huffmanTable),outputFile);*/
     }
 
     // virker ikke helt fordi der ikke bliver padded med 0'er til sidst i filen.
