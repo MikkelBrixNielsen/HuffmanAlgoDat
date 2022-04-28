@@ -1,16 +1,16 @@
 public class Element {
 
     private int key;
-    private Object data;
+    private HuffmanTree data;
 
-    public Element(int i, Object o){
+    public Element(int i, HuffmanTree o){
 	this.key = i;
 	this.data = o;
     }
     public int getKey(){
 	return this.key;
     }
-    public Object getData(){
+    public HuffmanTree getData(){
 	return this.data;
     }
 }

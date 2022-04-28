@@ -1,36 +1,47 @@
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 public class Encode {
     public static void main(String[] args) {
-        int[] test = ByteReader.readBytesAsInt(new File("C:\\Users\\mikke\\OneDrive\\Dokumenter\\SDU\\DM507 - Algoritmer og datastrukture\\HuffmanAlg\\src\\x21_ScardoviaWiggsiae.dna"));
-        goThroughHuffTree(huffmanAlg(test),"");
+        File inputFile = new File(args[0]);
+        File outputFile = new File(args[1]);
+        int[] frequencyTable = ByteReader.createFrequencyTableFrom(inputFile);
+        String[] huffmanTable = HuffmanTree.createHuffmanTable(frequencyTable);
+
+
+        ByteWriter.writeBitToOutputFile(frequencyTable, outputFile); // the ByteWriter method is probably not correct / broken
+        writeEncodedString(encode(inputFile, huffmanTable),outputFile);
     }
 
-    public static void goThroughHuffTree(HuffmanTree currentNode, String str) {
-        if (currentNode != null) {
-            goThroughHuffTree(currentNode.left(), str + "L");
-            if (currentNode.left() == null ||currentNode.right() == null)
-                System.out.println(currentNode.getBitValue() + ": " + str);
-            goThroughHuffTree(currentNode.right(), str + "R");
+    // virker ikke helt fordi der ikke bliver padded med 0'er til sidst i filen.
+    public static String encode(File file, String[] huffmanTable) {
+        String bitCode = "";
+        try {
+            BitInputStream BIStream = new BitInputStream(new FileInputStream(file));
+            int n = BIStream.readInt();
+            while (n != -1) {
+                bitCode += huffmanTable[n % 256];
+                n = BIStream.readInt();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
+        return bitCode;
     }
 
-    public static HuffmanTree huffmanAlg(int[] table) {
-        PQHeap tableHeap = tableToMinHeap(table);
-        int n = table.length;
-        for (int i = 0; i < n; i++) {
-            Element e1 = tableHeap.extractMin();
-            Element e2 = tableHeap.extractMin();
-            tableHeap.insert(new Element((e1.getKey() + e2.getKey()),
-                    new HuffmanTree((HuffmanTree) e1.getData(),(HuffmanTree) e2.getData())));
-        }
-        return (HuffmanTree) tableHeap.extractMin().getData();
-    }
-
-    private static PQHeap tableToMinHeap(int[] table) {
-        PQHeap tableHeap = new PQHeap();
-        for (int i = 0; i < table.length; i++)
-            tableHeap.insert(new Element(table[i], new HuffmanTree(i)));
-        return tableHeap;
+    private  static void writeEncodedString(String encodedString, File outputFile) {
+        int[] bitCode = new int[encodedString.length()];
+        for (int i = 0; i < bitCode.length; i++)
+            bitCode[i] = Character.getNumericValue(encodedString.charAt(i));
+        ByteWriter.writeBitToOutputFile(bitCode, outputFile);
     }
 }
+
+
+
+
+
+
+
+
