@@ -2,7 +2,7 @@ import java.io.*;
 
 public class Encode {
     public static void main(String[] args) {
-        writeToFile(new File(args[0]), new File(args[1]));
+        EncodeAndWriteToFile(new File(args[0]), new File(args[1]));
     }
 
     public static int[] createFrequencyTableFrom(File file) {
@@ -21,7 +21,7 @@ public class Encode {
         return frequencyTable;
     }
 
-    private static void writeToFile(File inputFile, File outputFile) {
+    private static void EncodeAndWriteToFile(File inputFile, File outputFile) {
         int[]  frequencyTable = createFrequencyTableFrom(inputFile);
         String[] huffmanTable = HuffmanTree.createHuffmanTable(frequencyTable);
         try {
