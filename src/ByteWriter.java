@@ -4,16 +4,31 @@ import java.io.IOException;
 
 public class ByteWriter {
 
-    public static void writeStringToOutputFile(String[] toWrite, String outputFile) {
+    // broken***
+    public static void writeIntToOutputFile(int[] toWrite, File outputFile) {
         try {
-            FileOutputStream fileOutputStream = new FileOutputStream(outputFile);
-            fileOutputStream.write((toWrite[0]).getBytes());
-            for (int i = 1; i < toWrite.length; i++)
-                fileOutputStream.write(("\n" + toWrite[i]).getBytes());
-            fileOutputStream.close();
+            BitOutputStream bitOutputStream = new BitOutputStream(new FileOutputStream(outputFile));
+            for (int intToWrite : toWrite)
+                bitOutputStream.writeInt(intToWrite);
+            bitOutputStream.close();
         } catch (IOException e){
             e.printStackTrace();
         }
     }
 
+    // broken***
+    public static void writeBitToOutputFile(int[] toWrite, File outputFile) {
+        try {
+            BitOutputStream bitOutputStream = new BitOutputStream(new FileOutputStream(outputFile));
+            for (int bitsToWrite : toWrite)
+                try {
+                    bitOutputStream.writeBit(bitsToWrite);
+                } catch (IllegalArgumentException e) {
+                    bitOutputStream.close();
+                }
+            bitOutputStream.close();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
 }

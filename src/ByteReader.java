@@ -4,7 +4,25 @@ import java.io.IOException;
 
 public class ByteReader {
 
-    public static int[] readBytesAsInt(File file) {
+    // gets not enough bits available exception
+    // public static int[] createFrequencyTableFrom(File file) {
+    //     int[] frequencyTable = new int[256];
+    //     try {
+    //         BitInputStream BIStream = new BitInputStream(new FileInputStream(file));
+    //         int n = BIStream.readInt();
+    //         while (n != -1) {
+    //             frequencyTable[n % 256]++;
+    //             n = BIStream.readInt();
+    //         }
+    //     } catch (IOException ex) {
+    //         ex.printStackTrace();
+    //     }
+    //     return frequencyTable;
+    // }
+
+
+    // broken*** bruger ikke bitInputStream
+    public static int[] createFrequencyTableFrom(File file) {
         int[] frequencyTable = new int[256];
         try {
             FileInputStream fileInputStream = new FileInputStream(file);
@@ -18,6 +36,7 @@ public class ByteReader {
         }
         return frequencyTable;
     }
+
 
     private static void readBytesAsZeroOrOne(File file) {
         try {
