@@ -34,18 +34,18 @@ public class HuffmanTree {
         }
     }
 
-    private static HuffmanTree huffmanAlg(int[] table) {
-        PQHeap tableMinHeap = tableToMinHeap(table);
-        int n = table.length;
+    private static HuffmanTree huffmanAlg(int[] frequencyTable) {
+        PQHeap frequencyTableMinHeap = frequencyTableToMinHeap(frequencyTable);
+        int n = frequencyTable.length;
         for (int i = 0; i < n; i++) {
-            Element e1 = tableMinHeap.extractMin();
-            Element e2 = tableMinHeap.extractMin();
-            tableMinHeap.insert(new Element((e1.getKey() + e2.getKey()), new HuffmanTree(e1.getData(), e2.getData())));
+            Element e1 = frequencyTableMinHeap.extractMin();
+            Element e2 = frequencyTableMinHeap.extractMin();
+            frequencyTableMinHeap.insert(new Element((e1.getKey() + e2.getKey()), new HuffmanTree(e1.getData(), e2.getData())));
         }
-        return tableMinHeap.extractMin().getData();
+        return frequencyTableMinHeap.extractMin().getData();
     }
 
-    private static PQHeap tableToMinHeap(int[] table) {
+    private static PQHeap frequencyTableToMinHeap(int[] table) {
         PQHeap tableHeap = new PQHeap();
         for (int i = 0; i < table.length; i++)
             tableHeap.insert(new Element(table[i], new HuffmanTree(i)));
