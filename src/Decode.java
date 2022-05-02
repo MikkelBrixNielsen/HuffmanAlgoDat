@@ -22,18 +22,17 @@ public class Decode {
             }
             HuffmanTree huffmanTree = HuffmanTree.createHuffmanTree(frequencyTable);
             HuffmanTree HTPointer = huffmanTree;
-            n = 1;
+            n = 0;
             while (n < totalFrequency) {
-                int bit = BIStream.readBit();
-                if (HTPointer.left() == null) {
-                    FOStream.write(HTPointer.getBitValue());
-                    HTPointer = huffmanTree;
-                } else {
+                while (HTPointer.left() != null) {
+                    int bit = BIStream.readBit();
                     if (bit == 0)
                         HTPointer = HTPointer.left();
                     else
                         HTPointer = HTPointer.right();
                 }
+                FOStream.write(HTPointer.getBitValue());
+                HTPointer = huffmanTree;
                 n++;
             }
         } catch (IOException e) {
