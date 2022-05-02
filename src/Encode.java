@@ -25,20 +25,20 @@ public class Encode {
         int[]  frequencyTable = createFrequencyTableFrom(inputFile);
         String[] huffmanTable = HuffmanTree.createHuffmanTable(frequencyTable);
         try {
-            BitOutputStream BIStream = new BitOutputStream(new FileOutputStream(outputFile));
+            BitOutputStream BOStream = new BitOutputStream(new FileOutputStream(outputFile));
             FileInputStream FIStream = new FileInputStream(inputFile);
             // writes the frequency from frequencyTable to the outputFile
             for (int intToWrite : frequencyTable)
-                BIStream.writeInt(intToWrite);
+                BOStream.writeInt(intToWrite);
             // Reads ints from the input file and gets the corresponding bitCode
             // from huffmanTable and writes it to the output file
             int n = FIStream.read();
             while (n != -1) {
                 for (int i = 0; i < huffmanTable[n].length(); i++)
-                    BIStream.writeBit(Character.getNumericValue(huffmanTable[n].charAt(i)));
+                    BOStream.writeBit(Character.getNumericValue(huffmanTable[n].charAt(i)));
                 n = FIStream.read();
             }
-            BIStream.close(); // closes the BIStream and pads with zeroes if need be
+            BOStream.close(); // closes the BIStream and pads with zeroes if need be
             FIStream.close();
         } catch (IOException e) {
             e.printStackTrace();

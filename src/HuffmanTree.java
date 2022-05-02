@@ -14,7 +14,7 @@ public class HuffmanTree {
     }
 
     public static String[] createHuffmanTable(int[] frequencyTable) {
-        return convertHuffmanTreeToTable(huffmanAlg(frequencyTable));
+        return convertHuffmanTreeToTable(createHuffmanTree(frequencyTable));
     }
 
     private static String[] convertHuffmanTreeToTable(HuffmanTree treeRoot) {
@@ -34,7 +34,7 @@ public class HuffmanTree {
         }
     }
 
-    private static HuffmanTree huffmanAlg(int[] frequencyTable) {
+    public static HuffmanTree createHuffmanTree(int[] frequencyTable) {
         PQHeap frequencyTableMinHeap = frequencyTableToMinHeap(frequencyTable);
         int n = frequencyTable.length;
         for (int i = 0; i < n; i++) {
@@ -52,22 +52,6 @@ public class HuffmanTree {
         return tableHeap;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public int getBitValue() {
         return bitValue;
     }
@@ -79,18 +63,5 @@ public class HuffmanTree {
     public HuffmanTree right(){
         return right;
     }
-
-    public void setBitValue(int bitValue) {
-        this.bitValue = bitValue;
-    }
-
-    public void setLeft(HuffmanTree left) {
-        this.left = left;
-    }
-
-    public void setRight(HuffmanTree right) {
-        this.right = right;
-    }
-
 
 }
