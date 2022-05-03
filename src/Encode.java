@@ -1,3 +1,7 @@
+//Mikkel Brix Nielsen (mikke21)
+//Nicolai Larsen (dalar21)
+//Steffen Bach (stbac21)
+
 import java.io.*;
 
 public class Encode {

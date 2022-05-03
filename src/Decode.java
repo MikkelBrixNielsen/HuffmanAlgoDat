@@ -1,3 +1,7 @@
+//Mikkel Brix Nielsen (mikke21)
+//Nicolai Larsen (dalar21)
+//Steffen Bach (stbac21)
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
