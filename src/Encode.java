@@ -1,8 +1,12 @@
-//Mikkel Brix Nielsen (mikke21)
-//Nicolai Larsen (dalar21)
-//Steffen Bach (stbac21)
+// Mikkel Brix Nielsen (mikke21)
+// Nicolai Larsen (dalar21)
+// Steffen Bach (stbac21)
 
-import java.io.*;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class Encode {
     public static void main(String[] args) {
@@ -20,9 +24,11 @@ public class Encode {
         try {
             BitOutputStream BOStream = new BitOutputStream(new FileOutputStream(outputFile));
             FileInputStream FIStream = new FileInputStream(inputFile);
+
             // writes the frequencies from frequencyTable to the outputFile
             for (int intToWrite : frequencyTable)
                 BOStream.writeInt(intToWrite);
+
             // Reads input data as ints from the input file and gets the corresponding bitCode
             // from huffmanTable and writes it to the output file
             int n = FIStream.read();

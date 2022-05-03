@@ -1,6 +1,6 @@
-//Mikkel Brix Nielsen (mikke21)
-//Nicolai Larsen (dalar21)
-//Steffen Bach (stbac21)
+// Mikkel Brix Nielsen (mikke21)
+// Nicolai Larsen (dalar21)
+// Steffen Bach (stbac21)
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -40,11 +40,15 @@ public class Decode {
 
             // recreates the HuffmanTree that was used to encode the original file from the read frequency table
             HuffmanTree huffmanTree = HuffmanTree.createHuffmanTree(frequencyTable);
+
             // creates a point that points to subtree that is currently is being visited
             HuffmanTree HTPointer = huffmanTree;
             n = 0;
             while (n < numberOfCharacters) { // writes no more characters than the combined amount found in frequency table
-                // Goes down a path in the HuffmanTree as long as the HTPoint does not point to a subtree which is equal to null
+
+                /*
+                 * Goes down a path in the HuffmanTree as long as the HTPoint does not point to a subtree which is equal to null
+                 */
                 while (HTPointer.left() != null) {  // exits if a leaf is reached
                     // Goes down the right or left subtree depending on what is returned bit BIStream.readBit()
                     // if 0 is read HTPoint is updated to point to its current left subtree else if a 1 is read
@@ -55,8 +59,10 @@ public class Decode {
                     else if (bit == 1)
                         HTPointer = HTPointer.right();
                 }
-                // Writes the integer representation of the decoded Huffman code found at the leaf
-                // which the HTPointer is pointing at.
+                /*
+                 * Writes the integer representation of the decoded Huffman code found at the leaf
+                 * which the HTPointer is pointing at.
+                 */
                 FOStream.write(HTPointer.getBitValue());
                 HTPointer = huffmanTree; // resets the HTPointer when a leaf is reached
                 n++;
