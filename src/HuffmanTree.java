@@ -1,3 +1,7 @@
+//Mikkel Brix Nielsen (mikke21)
+//Nicolai Larsen (dalar21)
+//Steffen Bach (stbac21)
+
 public class HuffmanTree {
     private final int bitValue;
     private final HuffmanTree left;
